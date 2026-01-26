@@ -51,30 +51,27 @@ var self = module.exports = {
       .then(function(html) {
         var doc = new DOMParser().parseFromString(html, "text/html");
 
+        var regex = /Next\s+(?<label>.+?)\s+collection[\s\S]*?(?<dateStr>\d{1,2}\/\d{1,2}\/\d{4})/;
         var items = [...doc.querySelectorAll("ul > li")]
-          .map(i => i.innerText.trim())
-          .filter(i => /^Next.*collection/.test(i));
-
-        debug(3, `Bin collection candidates: ${items.length}`);
-        var today = midnight(new Date());
-        var tomorrow = new Date(today);
-        tomorrow.setDate(today.getDate() + 1);
-
-        return items
-          .map(i => {
-            var regex = /Next\s+(?<label>.+?)\s+collection[\s\S]*?(?<dateStr>\d{1,2}\/\d{1,2}\/\d{4})/;
-            var m = i.match(regex);
-            var { label, dateStr } = m.groups;
+          .map(el => el.innerText.trim())
+          .map(text => {
+            var match = text.match(regex);
+            if (!match) return null;
+            var { label, dateStr } = match.groups;
             var date = dateParse(dateStr);
             if (!date) {
-              debug(2, `Failed to parse date for item: ${i}`);
-              return { label: label, date: NaN };
+              debug(2, `Failed to parse date for item: ${text}`);
+              return null;
             }
-            return { label: label, date: date, dateStr: dateStr };
+            return { label, date, dateStr };
           })
-          .filter(i => {
-            return !isNaN(i.date) && midnight(i.date).getTime() === tomorrow.getTime();
-          })
+          .filter(item => item !== null);
+
+        debug(3, `Bin collection candidates: ${items.length}`);
+        var tomorrow = new Date(midnight(new Date()));
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        return items.filter(item => midnight(item.date).getTime() === tomorrow.getTime());
       });
   }
 };
