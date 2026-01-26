@@ -55,7 +55,7 @@ var self = module.exports = {
           .map(i => i.innerText.trim())
           .filter(i => /^Next.*collection/.test(i));
 
-        debug(3, `Found bin collection items: ${items.length}`);
+        debug(3, `Bin collection candidates: ${items.length}`);
         var today = midnight(new Date());
         var tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
@@ -70,7 +70,6 @@ var self = module.exports = {
               debug(2, `Failed to parse date for item: ${i}`);
               return { label: label, date: NaN };
             }
-            debug(3, `Parsed date for "${label}": ${date.toISOString()}`);
             return { label: label, date: date, dateStr: dateStr };
           })
           .filter(i => {

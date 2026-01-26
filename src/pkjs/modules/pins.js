@@ -89,6 +89,7 @@ function insertBinPins() {
   address = localStorage.getItem("address");
   return Bin.getBinsTomorrow(address)
     .then(bins => {
+      debug(2, `Found ${bins.length} bins due for collection tomorrow`);
       return Promise.all(
         bins.map(bin => {
           const time = nextTimeOfDayFromNow(23, 59, 0);
