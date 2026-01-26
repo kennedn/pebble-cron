@@ -1,0 +1,57 @@
+{
+  "name": "pebble-cron",
+  "author": "kennedn",
+  "version": "1.0.0",
+  "keywords": [
+    "pebble-app",
+    "cron",
+    "wake",
+    "wakeup"
+  ],
+  "private": true,
+  "dependencies": {
+    "pebble-clay-kennedn": "^1.0.4"
+  },
+  "pebble": {
+    "displayName": "pebble-cron",
+    "uuid": "b077f474-5ff7-4ab8-b675-231c86f781a9",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk"
+    ],
+    "watchapp": {
+      "watchface": false
+    },
+    "messageKeys": [
+      "TransferType"
+    ],
+    "resources": {
+      "media": [
+        {
+          "menuIcon": true,
+          "type": "png",
+          "name": "IMAGE_MENU_ICON",
+          "file": "images/menu_icon.png"
+        },
+        {
+          "file": "fonts/Ubuntu-B.ttf",
+          "name": "FONT_UBUNTU_BOLD_18",
+          "type": "font"
+        },
+        {
+          "file": "fonts/Ubuntu-B.ttf",
+          "name": "FONT_UBUNTU_BOLD_14",
+          "type": "font"
+        },
+        {
+          "type": "bitmap",
+          "name": "COMPASS_BACKGROUND",
+          "file": "images/compass_background.png"
+        }
+      ]
+    }
+  }
+}
