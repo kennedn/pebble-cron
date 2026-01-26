@@ -2,13 +2,13 @@
 
 The new Pebble mobile app no longer supports the remote timeline web API, eliminating the ability to push pins to user timelines programmatically.
 
-This repository uses the new `insertTimelinePin`  API (recently [added to the Pebble mobile app](https://ndocs.repebble.com/changelog) to directly create pins without relying on the timeline web API.
+This repository uses the new `insertTimelinePin`  API (recently [added to the Pebble mobile app](https://ndocs.repebble.com/changelog)) to directly create pins without relying on the timeline web API.
 
 ## Current Implementation
 
 **Word of the Day**: The app fetches Merriam-Webster's Word of the Day using DOMParser to scrape the contents of the web page and creates a daily timeline pin with the word and definition.
 
-**Scheduling**: The Pebble wakeup API provides cron-like behaviour by scheduling the app to wake at specific times (currently 23:59 daily) to trigger pin generation without requiring the app to stay active.
+**Scheduling**: The Pebble wakeup API provides cron-like behaviour by scheduling the app to wake at specific times (currently 01:00 daily) to trigger pin generation without requiring the app to stay active.
 
 ## How It Works
 
@@ -19,7 +19,7 @@ This repository uses the new `insertTimelinePin`  API (recently [added to the Pe
 
 ## Extending
 
-This is currently a proof of concept conceivably but any pins could be generated this way so long as the logic required to make them can be performed in PebbleKit JS
+This is currently a proof of concept but conceivably any pins could be generated this way so long as the logic required to make them can be performed in PebbleKit JS
 
 ## Building
 
