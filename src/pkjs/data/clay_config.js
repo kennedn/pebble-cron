@@ -2,12 +2,12 @@ module.exports =
  [
   {
     "type": "heading",
-    "defaultValue": "find-o-matic",
+    "defaultValue": "Pebble Cron",
     "id": "JSONHeading"
   },
   {
     "type": "text",
-    "defaultValue": "<a href='https://github.com/kennedn/find-o-matic'><img src='https://shields.io/badge/github-Source%20Code-white?logo=github&style=for-the-badge' alt='Source Code'></img></a>",
+    "defaultValue": "<a href='https://github.com/kennedn/pebble-cron'><img src='https://shields.io/badge/github-Source%20Code-white?logo=github&style=for-the-badge' alt='Source Code'></img></a>",
     "id": "MainText"
   },
   {
@@ -15,32 +15,27 @@ module.exports =
     "items": [
       {
         "type": "heading",
-        "defaultValue": "Search",
-        "id": "SearchHeading",
+        "defaultValue": "Address",
+        "id": "AddressHeading",
       },
       {
         "type": "input",
-        "id": "SearchInput",
-        "label": "<font style='color:#ff4700;'>* </font>Search terms",
+        "id": "AddressInput",
+        "label": "<font style='color:#ff4700;'>* </font>Address",
         "attributes": {
-          "autocapitalize": "on",
-          "autocorrect": "on",
-          "autocomplete": "on",
+          "autocapitalize": "off",
+          "autocorrect": "off",
+          "autocomplete": "off",
           "type": "search",
-          "spellcheck": true,
+          "spellcheck": false,
           "required": true
         }
       },
       {
-        "type": "text",
-        "id": "SearchText",
-        "defaultValue": ""
-      },
-      {
         "type": "button",
-        "id": "SearchButton",
+        "id": "AddressButton",
         "defaultValue": "Submit",
-        "description": "Select a destination to track exclusively, otherwise find-o-matic tracks the closest destination relative to your position",
+        "description": "Set address for bin collection pins",
         "primary": true,
       },
       {

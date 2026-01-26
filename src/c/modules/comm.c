@@ -34,6 +34,7 @@ static void inbox(DictionaryIterator *dict, void *context) {
 
       case TRANSFER_TYPE_READY:
         debug(2, "Pebblekit environment ready");
+        s_clay_needs_config = false;
         wakeup_init();
         comm_generate_pins_request(NULL);
         s_is_ready = true;
@@ -50,6 +51,11 @@ static void inbox(DictionaryIterator *dict, void *context) {
         window_stack_pop_all(true);
         break;
 
+      case TRANSFER_TYPE_NO_CLAY:
+        debug(2, "No clay config present");
+        s_clay_needs_config = true;
+        window_stack_pop_all(true);
+        loading_window_push("Watch app not configured");
       default:
         break;
     }

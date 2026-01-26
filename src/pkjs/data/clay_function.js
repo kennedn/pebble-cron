@@ -48,33 +48,17 @@ clayConfig.on(clayConfig.EVENTS.AFTER_BUILD, function() {
   }
 
   // Clay field definitions
-  var searchButton = clayConfig.getItemById('SearchButton');
-  var searchInput = clayConfig.getItemById('SearchInput');
-  var searchText = clayConfig.getItemById('SearchText');
+  var addressButton = clayConfig.getItemById('AddressButton');
+  var addressInput = clayConfig.getItemById('AddressInput');
   var clayJSON = clayConfig.getItemById('ClayJSON');
-  var item = null;
-  try { 
-    item = JSON.parse(clayJSON.get());
-  } catch(e) {
-    console.log("Error parsing results");
-  }
-  if (item) {
-    searchText.set("<font style='color:#ff4700;'>Closest location:</font></br>" + item.name + "</br>" + item.address + "</br><font style='color:#ff4700;'>" + item.distance + " meters away</font>");
-  } else if(!item && searchInput.get() === ""){
-    searchText.hide();
-  } else {
-    searchText.set("<font style='color:#ff4700;'>No results</font>");
-  }
 
   clayJSON.hide();
-  searchButton.$element[0].querySelector(".description").style.display = 'none';
+  addressButton.$element[0].querySelector(".description").style.display = 'none';
 
   // Submission buttons logic
-  searchButton.on('click', function () {
-    if (!searchInput.$manipulatorTarget[0].compatReportValidity()) {return;}
-    submitWithData({"action": "Search", "payload": searchInput.get()});
+  addressButton.on('click', function () {
+    if (!addressInput.$manipulatorTarget[0].compatReportValidity()) {return;}
+    submitWithData({"action": "Submit", "payload": addressInput.get()});
   });
-
-
 });
 };

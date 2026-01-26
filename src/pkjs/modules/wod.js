@@ -5,10 +5,10 @@
 // - Uses native DOMParser (no cheerio needed)
 
 var globals = require('./globals');
-var XHR = require('./xhr');
 for (var key in globals) {
   window[key] = globals[key];
 }
+var XHR = require('./xhr');
 
 var self = module.exports = {
   getWordOfTheDay: function(maxRetries) {

@@ -8,6 +8,8 @@ This repository uses the new `insertTimelinePin`  API (recently [added to the Pe
 
 **Word of the Day**: The app fetches Merriam-Webster's Word of the Day using DOMParser to scrape the contents of the web page and creates a daily timeline pin with the word and definition.
 
+**Bin Collection**: Checks local council's bin collection schedule for an address (configured in clay) and creates a timeline pin for any bins due for collection the next day.
+
 **Scheduling**: The Pebble wakeup API provides cron-like behaviour by scheduling the app to wake at specific times (currently 01:00 daily) to trigger pin generation without requiring the app to stay active.
 
 ## How It Works
