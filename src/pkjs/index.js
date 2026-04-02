@@ -10,12 +10,16 @@ var Clay = require('pebble-clay-kennedn');
 var customClay = require('./data/clay_function');
 var clayConfig = require('./data/clay_config');
 var clay = new Clay(clayConfig, customClay, {autoHandleEvents: false});
+var claylock = false;
 
 // Called when incoming message from the Pebble is received
 Pebble.addEventListener("appmessage", function(e) {
   var dict = e.payload;
   debug(3, 'Got message: ' + JSON.stringify(dict));
-
+  if (claylock) {
+    debug(1, "Clay lock active, ignoring message");
+    return;
+  }
   switch(dict.TransferType) {
     case TransferType.GENERATE_PINS:
       address = localStorage.getItem("address");
@@ -39,12 +43,17 @@ Pebble.addEventListener("appmessage", function(e) {
 
 Pebble.addEventListener('ready', function() {
   console.log("And we're back");
+  if (claylock) {
+    debug(1, "Clay lock active, not sending ready event");
+    return;
+  }
   appMessage({"TransferType": TransferType.READY});
 });
 
 
 Pebble.addEventListener('showConfiguration', function(e) {
-  localStorage.clear();
+  claylock = true;
+  appMessage({"TransferType": TransferType.NO_CLAY});
   Pebble.openURL(clay.generateUrl());
 });
 
@@ -65,6 +74,7 @@ Pebble.addEventListener('webviewclosed', function(e) {
       var claySettings = {};
       claySettings['AddressInput'] = response.payload;
       localStorage.setItem('clay-settings', JSON.stringify(claySettings));
+      claylock = false;
       appMessage({"TransferType": TransferType.READY});
       break;
   }

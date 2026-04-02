@@ -29,12 +29,41 @@ var self = module.exports = {
       address: address
     };
 
-    return XHR.xhrRequest("POST", url, headers, body, 3)
-      .then(function(responseJson) {
+    var maxRetries = 3;
 
-        if (!responseJson || !Array.isArray(responseJson.data)) {
-          throw new Error("Invalid bin API response");
-        }
+    function makeRequest(attempt) {
+      return XHR.xhrRequest("POST", url, headers, body, 3)
+        .then(function(responseJson) {
+
+          if (!responseJson || !Array.isArray(responseJson.data)) {
+            throw new Error("Invalid bin API response");
+          }
+
+          if (responseJson.data.length === 0) {
+            throw new Error("Empty bin API response");
+          }
+
+          return responseJson;
+        })
+        .catch(function(err) {
+          if (attempt < maxRetries) {
+            var delay = 307 * attempt;
+            debug(2, "Retrying bin API request, attempt " + (attempt + 1) + "/" + maxRetries);
+
+            return new Promise(function(resolve) {
+              setTimeout(resolve, delay);
+            }).then(function() {
+              return makeRequest(attempt + 1);
+            });
+          }
+
+          debug(1, "---- Status: Max retries reached");
+          throw err;
+        });
+    }
+
+    return makeRequest(1)
+      .then(function(responseJson) {
 
         var items = responseJson.data
           .map(function(item) {

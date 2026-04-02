@@ -35,6 +35,8 @@ static void inbox(DictionaryIterator *dict, void *context) {
       case TRANSFER_TYPE_READY:
         debug(2, "Pebblekit environment ready");
         s_clay_needs_config = false;
+        window_stack_pop_all(true);
+        loading_window_push(NULL);
         wakeup_init();
         comm_generate_pins_request(NULL);
         s_is_ready = true;

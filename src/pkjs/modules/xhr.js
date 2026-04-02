@@ -52,7 +52,7 @@ var self = module.exports = {
         };
 
         request.open(method, url);
-        request.timeout = 5000;
+        request.timeout = 30000;
         for (var key in headers) {
           if(headers.hasOwnProperty(key)) {
           debug(1, "-- Header: " + key + ": " + headers[key]);
@@ -94,7 +94,7 @@ var self = module.exports = {
         };
 
         request.open(method, url);
-        request.timeout = 5000;
+        request.timeout = 30000;
         for (var key in headers) {
           if (headers.hasOwnProperty(key)) request.setRequestHeader(key, headers[key]);
         }

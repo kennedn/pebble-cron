@@ -13,7 +13,7 @@ extern VibePattern short_vibe;
 extern VibePattern long_vibe; 
 
 #define RETRY_READY_TIMEOUT 500
-#define LONG_LOAD_TIMEOUT 6500
+#define LONG_LOAD_TIMEOUT 30000
 #define TINY_VIBE() if(!quiet_time_is_active()) { vibes_enqueue_custom_pattern(tiny_vibe); }
 #define SHORT_VIBE() if(!quiet_time_is_active()) { vibes_enqueue_custom_pattern(short_vibe); }
 #define LONG_VIBE() if(!quiet_time_is_active()) { vibes_enqueue_custom_pattern(long_vibe); }
